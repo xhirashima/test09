@@ -1,0 +1,43 @@
+App\TestBundle\Entity\AuthUser:
+  type: entity
+  table: auth_user
+  fields:
+    authUserId:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      column: auth_user_id
+      generator:
+        strategy: IDENTITY
+    username:
+      type: string
+      length: 255
+      fixed: false
+      nullable: false
+    salt:
+      type: string
+      length: 255
+      fixed: false
+      nullable: false
+    password:
+      type: string
+      length: 255
+      fixed: false
+      nullable: false
+    aaa:
+      type: string
+      length: 255
+      fixed: false
+      nullable: true
+  oneToOne:
+    authRole:
+      targetEntity: AuthRole
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        auth_role_id:
+          referencedColumnName: auth_role_id
+      orphanRemoval: false
+  lifecycleCallbacks: {  }

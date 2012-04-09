@@ -1,0 +1,19 @@
+
+{% if error %}
+ <div>{{ error.message }}</div>
+{% endif %}
+
+<form action="{{ path('auth_login_check') }}" method="post">
+ <label for="username">ログインID:</label>
+ <input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+ <label for="password">パスワード:</label>
+ <input type="password" id="password" name="_password" />
+
+  {#
+  認証成功した際のリダイレクト URL を制御したい場合は_target_pathにパスを指定する
+  <input type="hidden" name="_target_path" value="/" />
+  #}
+
+ <input type="submit" name="login" />
+</form>

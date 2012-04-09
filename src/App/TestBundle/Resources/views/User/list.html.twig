@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<table>
+    <tr>
+        <td>id</td>
+        <td>username</td>
+        <td>password</td>
+        <td>rols</td>
+    </tr>
+
+    {% for user in users %}
+        <tr>
+            <td>{{user.authUserId}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.password}}</td>
+            <td>
+            {% for role in user.roles %}
+                {{role}}
+            {% endfor %}
+            </td>
+        </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}
+
+

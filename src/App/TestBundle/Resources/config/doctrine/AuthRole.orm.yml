@@ -1,0 +1,18 @@
+App\TestBundle\Entity\AuthRole:
+  type: entity
+  table: auth_role
+  fields:
+    authRoleId:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      column: auth_role_id
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 255
+      fixed: false
+      nullable: false
+  lifecycleCallbacks: {  }
