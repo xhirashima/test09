@@ -11,10 +11,14 @@ auth_login_check:
 auth_logout:
     pattern: /logout
 
+
+
 #ユーザー管理
 auth_mng_list:
     pattern: /user/list
     defaults: { _controller: AppTestBundle:User:list }
+
+
 
 #AppTestBundle_homepage:
 #    pattern:  /hello/{name}

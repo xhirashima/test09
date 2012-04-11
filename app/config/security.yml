@@ -1,49 +1,83 @@
 security:
     encoders:
-        App\TestBundle\Entity\AuthUser: plaintext
-#        Symfony\Component\Security\Core\User\User: plaintext
+        Symfony\Component\Security\Core\User\User: plaintext
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
-#        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
-        my_users:
-            entity: { class: App\TestBundle\Entity\AuthUser, property: username }
-#        in_memory:
-#            users:
-#                user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-#                admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        in_memory:
+            users:
+                user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
-    # ファイアーウォールの設定
     firewalls:
-        # ログイン画面は認証エリア外
-        login:
-            # エリア範囲（正規表現）
-            pattern: ^/AppTestBundle/login$
-            # セキュリティ設定を無効
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-            
-        # 認証エリアの設定
-        secured_area:
-            # エリア範囲（正規表現）
-            pattern: ^/
-            # ログインフォームの設定
-            form_login:
-                # ログインフォームのパス
-                login_path: /AppTestBundle/login
-                # ログイン状態を確認するパス
-                check_path: /AppTestBundle/login_check
-            # ログアウトの設定
-            logout:
-                # ログアウト用のURLのパス
-                path: /AppTestBundle/logout
-                # ログアウト後に移行するページ
-                target: /AppTestBundle/login
 
-    # アクセス権限の設定
+        login:
+            pattern:  ^/demo/secured/login$
+            security: false
+
+        secured_area:
+            pattern:    ^/demo/secured/
+            form_login:
+                check_path: /demo/secured/login_check
+                login_path: /demo/secured/login
+            logout:
+                path:   /demo/secured/logout
+                target: /demo/
+            #anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"
+
     access_control:
-        # /testにはROLE_USERとROLE_ADMINがアクセス可能
-        - { path: ^/test, roles: ROLE_ADMIN }
-        # /から始まるコンテンツにアクセスするにはROLE_ADMIN権限が必要
-        - { path: ^/, roles: ROLE_USER }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        #- { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+
+
+#security:
+#    encoders:
+#        App\TestBundle\Entity\AuthUser: plaintext
+#
+#    role_hierarchy:
+#        ROLE_ADMIN:       ROLE_USER
+#
+#    providers:
+#        my_users:
+#            entity: { class: App\TestBundle\Entity\AuthUser, property: username }
+#
+#    # ファイアーウォールの設定
+#    firewalls:
+#        # ログイン画面は認証エリア外
+#        login:
+#            # エリア範囲（正規表現）
+#            pattern: ^/AppTestBundle/login$
+#            # セキュリティ設定を無効
+#            security: false
+#            
+#        # 認証エリアの設定
+#        secured_area:
+#            # エリア範囲（正規表現）
+#            pattern: ^/
+#            # ログインフォームの設定
+#            form_login:
+#                # ログインフォームのパス
+#                login_path: /AppTestBundle/login
+#                # ログイン状態を確認するパス
+#                check_path: /AppTestBundle/login_check
+#            # ログアウトの設定
+#            logout:
+#                # ログアウト用のURLのパス
+#                path: /AppTestBundle/logout
+#                # ログアウト後に移行するページ
+#                target: /AppTestBundle/login
+#
+#    # アクセス権限の設定
+#    access_control:
+#        # /testにはROLE_USERとROLE_ADMINがアクセス可能
+#        - { path: ^/test, roles: ROLE_ADMIN }
+#        # /から始まるコンテンツにアクセスするにはROLE_ADMIN権限が必要
+#        - { path: ^/, roles: ROLE_USER }

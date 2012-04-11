@@ -15,15 +15,18 @@
             <td>{{user.authUserId}}</td>
             <td>{{user.username}}</td>
             <td>{{user.password}}</td>
-            <td>
+{#            <td>
             {% for role in user.roles %}
                 {{role}}
             {% endfor %}
             </td>
+#}
         </tr>
     {% endfor %}
 
 </table>
+
+{{ users.render()|raw }}
 
 {% endblock %}
 
