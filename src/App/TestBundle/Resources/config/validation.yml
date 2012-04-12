@@ -1,6 +1,0 @@
-## YAML Template.
-App\TestBundle\Entity\AuthUser:
-    properties:
-        username:
-            - NotBlank: ~
-            - Min: 3
