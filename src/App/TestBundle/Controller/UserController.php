@@ -4,6 +4,7 @@ namespace App\TestBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use App\TestBundle\Entity\AuthUser;
+use App\TestBundle\Form\Type\AuthUserType;
 
 class UserController  extends Controller
 {
@@ -32,9 +33,14 @@ class UserController  extends Controller
         $authuser = new AuthUser();
         
         //
+        $form = $this->createForm(new AuthUserType(), $authuser);
+
+/*
+        //createFormBuilderを使用するパターン
         $form = $this->createFormBuilder($authuser)
                 ->add('username', 'text')
                 ->getForm();
+*/
         
         //
         if ($request->getMethod() === 'POST')
