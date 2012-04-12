@@ -6,11 +6,22 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
 /**
  * App\TestBundle\Entity\AuthUser
  */
 class AuthUser implements UserInterface
 {
+    
+    //バリデーション
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('username', new NotBlank());
+    }
+    
+    
     /**
      * @var integer $authUserId
      */
