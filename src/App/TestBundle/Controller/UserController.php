@@ -1,8 +1,9 @@
 <?php
-
 namespace App\TestBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use App\TestBundle\Entity\AuthUser;
 
 class UserController  extends Controller
 {
@@ -25,8 +26,29 @@ class UserController  extends Controller
         return $this->render('AppTestBundle:User:list.html.twig', array('users' => $users));
     }
     
-
-    
+    public function createAction(Request $request)
+    {
+        //
+        $authuser = new AuthUser();
+        
+        //
+        $form = $this->createFormBuilder($authuser)
+                ->add('username', 'text')
+                ->getForm();
+        
+        //
+        if ($request->getMethod() === 'POST')
+        {
+            $form->bindRequest($request);
+            if($form->isValid())
+            {
+                
+            }
+        }
+        
+        return $this->render('AppTestBundle:User:create.html.twig', array('form' => $form->createView()));
+    }
+        
 }
 
 ?>

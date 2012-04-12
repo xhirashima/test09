@@ -1,0 +1,13 @@
+{# empty Twig template #}
+
+<form action="{{ path('auth_mng_create') }}" method="post" {{ form_enctype(form) }} novalidate>
+
+    {{ form_errors(form) }}
+
+    {{ form_row(form.username) }}
+
+    {{ form_rest(form) }}
+
+    <input type="submit" />
+</form>
+

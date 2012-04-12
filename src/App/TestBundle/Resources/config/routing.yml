@@ -18,7 +18,10 @@ auth_mng_list:
     pattern: /user/list
     defaults: { _controller: AppTestBundle:User:list }
 
-
+#ユーザー新規作成
+auth_mng_create:
+    pattern: /user/create
+    defaults: { _controller: AppTestBundle:User:create }
 
 #AppTestBundle_homepage:
 #    pattern:  /hello/{name}
