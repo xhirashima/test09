@@ -1,13 +1,12 @@
-{# empty Twig template #}
+{% extends '::base.html.twig' %}
+
+{% block body %}
 
 <form action="{{ path('auth_mng_create') }}" method="post" {{ form_enctype(form) }} novalidate>
-
-    {{ form_errors(form) }}
-
-    {{ form_row(form.username) }}
-
-    {{ form_rest(form) }}
+    {{ form_widget(form) }}
 
     <input type="submit" />
 </form>
+
+{% endblock %}
 

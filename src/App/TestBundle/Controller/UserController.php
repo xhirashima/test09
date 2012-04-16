@@ -45,16 +45,33 @@ class UserController  extends Controller
         //createFormBuilderを使用するパターン
         $form = $this->createFormBuilder($authuser)
                 ->add('username', 'text')
+                ->add('password', 'password')
+                ->add('authrole', 'entity', array(
+                    'class' => 'App\TestBundle\Entity\AuthRole',
+                    'property' => 'name',
+                ))
                 ->getForm();
 */
-        
+       
         //
         if ($request->getMethod() === 'POST')
         {
             $form->bindRequest($request);
             if($form->isValid())
             {
+                //formデータ取得
+                $formdata = $form->getData();
                 
+                //
+                $authuser->setUsername($formdata->getUsername());
+                $authuser->setPassword($formdata->getPassword());
+                $authuser->setSalt('');
+                $authuser->setAuthRole($formdata->getAuthRole());
+                
+                //
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($authuser);
+                $em->flush();
             }
         }
         

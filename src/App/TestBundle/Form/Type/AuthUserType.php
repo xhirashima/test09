@@ -14,6 +14,11 @@ class AuthUserType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('username', 'text');
+        $builder->add('password', 'password');
+        $builder->add('authrole', 'entity', array(
+            'class' => 'App\TestBundle\Entity\AuthRole',
+            'property' => 'name',
+            ));
     }
     
     public function getName()
