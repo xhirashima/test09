@@ -1,6 +1,7 @@
 <?php
 namespace App\TestBundle\Lib;
 
+use Doctrine\ORM\EntityManager;
 use App\TestBundle\Entity\AuthUser;
 
 /**
@@ -11,19 +12,31 @@ use App\TestBundle\Entity\AuthUser;
 class AuthenticationMng
 {
     /**
-     * ユーザー新規登録 
-     * @param App\TestBundle\Entity\AuthUser $user 
+     *
+     * @var Doctrine\ORM\EntityManager 
      */
-    public function insertUser(App\TestBundle\Entity\AuthUser $user)
+    protected $em;
+    
+    public function __construct(EntityManager $em)
     {
-        
+        $this->em = $em;
+    }
+
+    /**
+     * ユーザー新規登録 
+     * @param App\TestBundle\Entity\AuthUser $authuser 
+     */
+    public function insertUser($authuser)
+    {
+        $this->em->persist($authuser);
+        $this->em->flush();
     }
     
     /**
      * ユーザー新規登録 formから
      * @param App\TestBundle\Form\Data\AuthUserFormData $userform 
      */
-    public function  insertUserForm(App\TestBundle\Form\Data\AuthUserFormData $userform)
+    public function  insertUserForm($userform)
     {
         $authuser = new AuthUser();
         

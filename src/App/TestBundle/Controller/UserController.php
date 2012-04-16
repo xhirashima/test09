@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\TestBundle\Entity\AuthUser;
 use App\TestBundle\Form\Type\AuthUserType;
 use App\TestBundle\Form\Data\AuthUserFormData;
+use App\TestBundle\Lib\AuthenticationMng;
 
 class UserController  extends Controller
 {
@@ -62,6 +63,12 @@ class UserController  extends Controller
                 //formデータ取得
                 $formdata = $form->getData();
                 
+                //保存
+                $em = $this->get('doctrine')->getEntityManager();
+                $auth_mng = new AuthenticationMng($em);
+                $auth_mng->insertUserForm($formdata);
+                
+/*
                 //
                 $authuser->setUsername($formdata->getUsername());
                 $authuser->setPassword($formdata->getPassword());
@@ -72,6 +79,7 @@ class UserController  extends Controller
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($authuser);
                 $em->flush();
+*/
             }
         }
         
