@@ -2,6 +2,7 @@
 namespace App\TestBundle\Form\Data;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use App\TestBundle\Validator\Constraint\EqualsField;
 
 /**
  * Description of AuthUserFormData
@@ -11,14 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class AuthUserFormData
 {
     //
-    /**
-     * パスワードチェック
-     * @Assert\True(message = "The password and confirmation password do not match")
-     */
-    public function isPasswordEqualToConfirmationPassword()
-    {
-        return ($this->password === $this->password_confirmation);
-    }
+
     //
     
     /**
@@ -26,7 +20,7 @@ class AuthUserFormData
      * @var type 
      * 
      * @Assert\NotBlank()
-     * @Assert\MaxLength(10)
+     * @Assert\MaxLength(limit = 10)
      */
     private $username;
     
@@ -42,7 +36,7 @@ class AuthUserFormData
      * パスワード確認
      * @var type 
      * 
-     * @Assert\NotBlank()
+     * @EqualsField(field = "password", message = "The password and confirmation password do not match")
      */
     private $password_confirmation;
     
