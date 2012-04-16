@@ -10,6 +10,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class AuthUserFormData
 {
+    //
+    /**
+     * パスワードチェック
+     * @Assert\True(message = "The password and confirmation password do not match")
+     */
+    public function isPasswordEqualToConfirmationPassword()
+    {
+        return ($this->password === $this->password_confirmation);
+    }
+    //
+    
     /**
      * ユーザー名
      * @var type 
@@ -26,6 +37,14 @@ class AuthUserFormData
      * @Assert\NotBlank()
      */
     private $password;
+    
+    /**
+     * パスワード確認
+     * @var type 
+     * 
+     * @Assert\NotBlank()
+     */
+    private $password_confirmation;
     
     /**
      * ロール
@@ -45,7 +64,7 @@ class AuthUserFormData
         $this->username = $username;
     }
     
-        public function getPassword()
+    public function getPassword()
     {
         return $this->password;
     }
@@ -53,6 +72,16 @@ class AuthUserFormData
     public function setPassword($password)
     {
         $this->password = $password;
+    }
+    
+    public function getPasswordConfirmation()
+    {
+        return $this->password_confirmation;
+    }
+    
+    public function setPasswordConfirmation($password_confirmation)
+    {
+        $this->password_confirmation = $password_confirmation;
     }
     
     /**

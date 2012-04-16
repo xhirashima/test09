@@ -15,6 +15,7 @@ class AuthUserType extends AbstractType
     {
         $builder->add('username', 'text');
         $builder->add('password', 'password');
+        $builder->add('password_confirmation', 'password');
         $builder->add('authrole', 'entity', array(
             'class' => 'App\TestBundle\Entity\AuthRole',
             'property' => 'name',
