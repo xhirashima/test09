@@ -3,16 +3,30 @@ namespace App\TestBundle\Form\Data;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use App\TestBundle\Validator\Constraint\EqualsField;
+use Symfony\Component\Validator\ExecutionContext;
 
 /**
  * Description of AuthUserFormData
  *
  * @author fhirashima
+ * @Assert\Callback(methods={"shouldValidUniqeUserName"})
  */
 class AuthUserFormData
 {
     //
-
+    /**
+     * ユーザー名　ユニークバリデーション
+     * @param ExecutionContext $context 
+     */
+    public function shouldValidUniqeUserName(ExecutionContext $context)
+    {
+        if(true)
+        {
+            $propertyPath = $context->getPropertyPath() . '.username';//プロパティーパス取得
+            $context->setPropertyPath($propertyPath);//プロパティーパス設定
+            $context->addViolation('usernameはユニークです', array(), null);//エラーメッセージ設定
+        }
+    }
     //
     
     /**
