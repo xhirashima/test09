@@ -35,7 +35,8 @@ class UserController  extends Controller
         $authuser = new AuthUser();
 
         //formクラスとformdataクラスを使用するパターン
-        $authuser_form = new AuthUserFormData();
+//        $authuser_form = new AuthUserFormData();
+        $authuser_form = $this->get('form.data.auth_user_form_data');
         $form = $this->createForm(new AuthUserType(), $authuser_form);
         
 /*        

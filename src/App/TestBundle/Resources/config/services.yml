@@ -2,6 +2,12 @@ parameters:
 #    app_test.example.class: App\TestBundle\Example
 
 services:
+    form.data.auth_user_form_data:
+        class: App\TestBundle\Form\Data\AuthUserFormData
+        arguments:   [@doctrine.orm.entity_manager]
+#        calls:
+#            - [ setEntityManager, [@doctrine.orm.entity_manager] ]
+
 #    app_test.example:
 #        class: %app_test.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

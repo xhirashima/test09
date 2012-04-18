@@ -4,6 +4,7 @@ namespace App\TestBundle\Form\Data;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\TestBundle\Validator\Constraint\EqualsField;
 use Symfony\Component\Validator\ExecutionContext;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Description of AuthUserFormData
@@ -13,6 +14,18 @@ use Symfony\Component\Validator\ExecutionContext;
  */
 class AuthUserFormData
 {
+    
+    /**
+     *
+     * @var Doctrine\ORM\EntityManager 
+     */
+    protected $em;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
     //
     /**
      * ユーザー名　ユニークバリデーション
@@ -20,11 +33,15 @@ class AuthUserFormData
      */
     public function shouldValidUniqeUserName(ExecutionContext $context)
     {
-        if(true)
+        $authuser = $this->em->getRepository('AppTestBundle:AuthUser')->findBy(
+                    array('username' => $this->getUsername())
+                );
+        
+        if(count($authuser) != 0)
         {
             $propertyPath = $context->getPropertyPath() . '.username';//プロパティーパス取得
             $context->setPropertyPath($propertyPath);//プロパティーパス設定
-            $context->addViolation('usernameはユニークです', array(), null);//エラーメッセージ設定
+            $context->addViolation('すでに'.$this->getUsername().'は登録されています。他のusernameを設定して下さい。', array(), null);//エラーメッセージ設定
         }
     }
     //
