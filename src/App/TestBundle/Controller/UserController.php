@@ -84,13 +84,30 @@ class UserController  extends Controller
 */
             }
         }
-        
+
         return $this->render('AppTestBundle:User:create.html.twig', array('form' => $form->createView()));
     }
     
     public function checkUserNameAction(Request $request)
     {
-        $ret = array('aaa' => 'bbb');
+        $ret = array('result' => false, 'data' => array());
+        //
+        if ($request->getMethod() === 'POST' && $request->get('username') != null)
+        {
+            $authmng = $this->get('asauth.mng');
+            if($authmng->isUsernameUnique($request->get('username')))
+            {
+                $ret['result'] = true;
+                $ret['data']['isunique'] = true;
+            }else
+            {
+                $ret['result'] = true;
+                $ret['data']['isunique'] = false;
+            }
+        }else
+        {
+            $ret['result'] = false;
+        }
         
         $return=json_encode($ret);
         return new Response($return, 200, array('Content-Type' => 'application/json; charset=utf-8'));

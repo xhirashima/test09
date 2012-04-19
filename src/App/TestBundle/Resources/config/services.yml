@@ -5,6 +5,10 @@ services:
     form.data.auth_user_form_data:
         class: App\TestBundle\Form\Data\AuthUserFormData
         arguments:   [@doctrine.orm.entity_manager]
+    asauth.mng:
+        class: App\TestBundle\Lib\AuthenticationMng
+        arguments: [@doctrine.orm.entity_manager]
+
 #        calls:
 #            - [ setEntityManager, [@doctrine.orm.entity_manager] ]
 

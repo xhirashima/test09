@@ -1,8 +1,36 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-1.7.2.min.js') }}"></script>
+    {% block page_javascript %}{% endblock page_javascript %}
+    <script type="text/javascript">
+    <!--
+    $(function(){
+        $('#AuthUser_username').blur(function(){
+            $.post(
+                '{{ path('auth_mng_check_username') }}',
+                {
+                    'username': $('#AuthUser_username').val()
+                },
+                function(data){
+                    var retstring = 'NG!!';
+                    if(data.result == true && data.data.isunique == true){
+                        retstring = 'OK!!';
+                    }
+                    $('#AuthUser_username_checkusername').text(retstring);
+                }
+            );
+        });
+    });
+    // -->
+    </script>
+{% endblock %}
+
+{# body #}
 {% block body %}
 
 <form action="{{ path('auth_mng_create') }}" method="post" {{ form_enctype(form) }} novalidate>
+
     {{ form_widget(form) }}
 
     <input type="submit" />
@@ -10,3 +38,13 @@
 
 {% endblock %}
 
+{# username row カスタマイズ #}
+{% form_theme form _self %}
+{% block _AuthUser_username_row %}
+    <div>
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        <span id="AuthUser_username_checkusername"></span>
+    </div>
+{% endblock %}

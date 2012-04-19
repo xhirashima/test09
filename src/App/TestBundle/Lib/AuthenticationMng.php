@@ -48,6 +48,21 @@ class AuthenticationMng
         
         $this->insertUser($authuser);
     }
+    
+    /**
+     * usernameユニークチェック
+     * @param type $username
+     * @return boolean 
+     */
+    public function isUsernameUnique($username)
+    {
+        $authuser = $this->em->getRepository('AppTestBundle:AuthUser')->findBy(array('username' => $username));
+        if(count($authuser) > 0)
+        {
+            return false;
+        }
+        return true;
+    }
 }
 
 ?>
