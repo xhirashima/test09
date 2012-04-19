@@ -23,6 +23,11 @@ auth_mng_create:
     pattern: /user/create
     defaults: { _controller: AppTestBundle:User:create }
 
+#
+auth_mng_check_username:
+    pattern: /user/create/checkusername
+    defaults: { _controller: AppTestBundle:User:checkUserName }
+
 #AppTestBundle_homepage:
 #    pattern:  /hello/{name}
 #    defaults: { _controller: AppTestBundle:Default:index }

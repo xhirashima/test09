@@ -7,6 +7,7 @@ use App\TestBundle\Entity\AuthUser;
 use App\TestBundle\Form\Type\AuthUserType;
 use App\TestBundle\Form\Data\AuthUserFormData;
 use App\TestBundle\Lib\AuthenticationMng;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController  extends Controller
 {
@@ -85,6 +86,14 @@ class UserController  extends Controller
         }
         
         return $this->render('AppTestBundle:User:create.html.twig', array('form' => $form->createView()));
+    }
+    
+    public function checkUserNameAction(Request $request)
+    {
+        $ret = array('aaa' => 'bbb');
+        
+        $return=json_encode($ret);
+        return new Response($return, 200, array('Content-Type' => 'application/json; charset=utf-8'));
     }
         
 }
