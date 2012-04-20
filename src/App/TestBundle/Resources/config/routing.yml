@@ -28,6 +28,11 @@ auth_mng_check_username:
     pattern: /user/create/checkusername
     defaults: { _controller: AppTestBundle:User:checkUserName }
 
+#
+auth_mng_check_username_ajax:
+    pattern: /user/create/checkusernameajax
+    defaults: { _controller: AppTestBundle:User:checkUserNameAjax }
+
 #AppTestBundle_homepage:
 #    pattern:  /hello/{name}
 #    defaults: { _controller: AppTestBundle:Default:index }

@@ -8,16 +8,12 @@
     $(function(){
         $('#AuthUser_username').blur(function(){
             $.post(
-                '{{ path('auth_mng_check_username') }}',
+                '{{ path('auth_mng_check_username_ajax') }}',
                 {
                     'username': $('#AuthUser_username').val()
                 },
                 function(data){
-                    var retstring = 'NG!!';
-                    if(data.result == true && data.data.isunique == true){
-                        retstring = 'OK!!';
-                    }
-                    $('#AuthUser_username_checkusername').text(retstring);
+                    $('#AuthUser_username_ajax_checkusername').text(data);
                 }
             );
         });
@@ -46,5 +42,6 @@
         {{ form_errors(form) }}
         {{ form_widget(form) }}
         <span id="AuthUser_username_checkusername"></span>
+        <div id="AuthUser_username_ajax_checkusername"></div>
     </div>
 {% endblock %}

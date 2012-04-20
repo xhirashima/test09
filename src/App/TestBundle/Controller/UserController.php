@@ -88,7 +88,7 @@ class UserController  extends Controller
         return $this->render('AppTestBundle:User:create.html.twig', array('form' => $form->createView()));
     }
     
-    public function checkUserNameAction(Request $request)
+    public function checkUserName(Request $request)
     {
         $ret = array('result' => false, 'data' => array());
         //
@@ -109,10 +109,26 @@ class UserController  extends Controller
             $ret['result'] = false;
         }
         
+        return $ret;
+    }
+    
+    public function checkUserNameAction(Request $request)
+    {
+        $ret = $this->checkUserName($request);
         $return=json_encode($ret);
         return new Response($return, 200, array('Content-Type' => 'application/json; charset=utf-8'));
     }
-        
+    
+    public function checkUserNameAjaxAction(Request $request)
+    {
+        $ret = $this->checkUserName($request);
+        if(!$ret['result'])
+        {
+            return new Response();
+        }
+        return $this->render('AppTestBundle:User:ajax_check_username.html.twig', array('result' => $ret));
+    }
+    
 }
 
 ?>
